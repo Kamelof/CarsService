@@ -15,24 +15,26 @@ namespace CarsService.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private static int idIndex = 0;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
+        private static List<WeatherForecast> weatherForecasts = CreateWeatherForecastsList();
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        private static List<WeatherForecast> CreateWeatherForecastsList()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
+                Id = ++idIndex,
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            }).ToList();
+        }
+
+        [HttpGet]
+        public IActionResult GetWeatherForecastsList()
+        {
+            return Ok(weatherForecasts);
         }
     }
 }
