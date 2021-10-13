@@ -1,10 +1,7 @@
 ﻿using CarsBuisnessLayer;
 using CarsBuisnessLayer.DTOs;
-using CarsCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarsPresentationLayer.Controllers

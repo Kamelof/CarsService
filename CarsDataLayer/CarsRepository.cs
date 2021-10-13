@@ -34,11 +34,16 @@ namespace CarsDataLayer
         public Car Update(Car car)
         {
             var oldCar = _cars.FirstOrDefault(x => x.Id == car.Id);
-            int index = _cars.IndexOf(oldCar);
+            if(oldCar != null)
+            {
+                int index = _cars.IndexOf(oldCar);
 
-            _cars[index] = car;
+                _cars[index] = car;
 
-            return car;
+                return car;
+            }
+
+            return null;
         }
 
         public Car DeleteById(Guid id)
