@@ -5,7 +5,7 @@ using CarsCore.Models;
 
 namespace CarsDataLayer
 {
-    public class CarsRepository
+    public class CarsRepository : ICarsRepository
     {
         private static List<Car> _cars;
 
@@ -34,7 +34,7 @@ namespace CarsDataLayer
         public Car Update(Car car)
         {
             var oldCar = _cars.FirstOrDefault(x => x.Id == car.Id);
-            if(oldCar != null)
+            if (oldCar != null)
             {
                 int index = _cars.IndexOf(oldCar);
 

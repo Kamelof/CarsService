@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarsBuisnessLayer
 {
-    public class CarsService
+    public class CarsService : ICarsService
     {
         public static CarsRepository _carsRepository;
 
@@ -40,7 +40,7 @@ namespace CarsBuisnessLayer
         public async Task<Guid> CreateCar(CarDTO carDTO)
         {
             await Task.CompletedTask;
-            if(Enum.TryParse(typeof(Color), carDTO.Color, out var color) && Enum.TryParse(typeof(Carcase), carDTO.Carcase, out var carcase))
+            if (Enum.TryParse(typeof(Color), carDTO.Color, out var color) && Enum.TryParse(typeof(Carcase), carDTO.Carcase, out var carcase))
             {
                 Car car = new Car
                 {
