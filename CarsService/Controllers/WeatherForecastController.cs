@@ -36,5 +36,57 @@ namespace CarsService.Controllers
         {
             return Ok(weatherForecasts);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetWeatherForecastById(int id)
+        {
+            var res = weatherForecasts.Where(x => x.Id == id).ToList();
+            if (res.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(res);
+        }
+
+        [HttpPost]
+        public IActionResult CreateWeatherForecast(WeatherForecast weatherForecast)
+        {
+            weatherForecast.Id = ++idIndex;
+            weatherForecast.Date = DateTime.Now;
+            weatherForecasts.Add(weatherForecast);
+
+            return Ok(weatherForecast);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult PutWeatherForecastById(int id, WeatherForecast changedWeatherForecast)
+        {
+            var listForCheckCorrectId = weatherForecasts.Where(x => x.Id == id).ToList();
+            if (listForCheckCorrectId.Count() == 0)
+            {
+                return NotFound();
+            }
+            int indexOfOldWeatherForecast = weatherForecasts.IndexOf(listForCheckCorrectId[0]);
+            weatherForecasts[indexOfOldWeatherForecast] = changedWeatherForecast;
+            weatherForecasts[indexOfOldWeatherForecast].Id = id;
+            weatherForecasts[indexOfOldWeatherForecast].Date = DateTime.Now;
+
+            return Ok(weatherForecasts[indexOfOldWeatherForecast]);
+        }
+        
+        [HttpDelete("{id}")]
+        public IActionResult DeleteWeatherForecastById(int id)
+        {
+            var listForCheckCorrectId = weatherForecasts.Where(x => x.Id == id).ToList();
+            if (listForCheckCorrectId.Count() == 0)
+            {
+                return NotFound();
+            }
+            WeatherForecast deletedWeatherForecast = listForCheckCorrectId[0];
+            weatherForecasts.Remove(deletedWeatherForecast);
+
+            return Ok(deletedWeatherForecast);
+        }
     }
 }
