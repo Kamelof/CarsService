@@ -1,4 +1,5 @@
 using CarsBuisnessLayer;
+using CarsBuisnessLayer.MapperProfiles;
 using CarsDataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace CarsPresentationLayer
 {
@@ -21,8 +23,16 @@ namespace CarsPresentationLayer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var assemblies = new[]
+            {
+                Assembly.GetAssembly(typeof(CarsProfile))
+            };
+
+            services.AddAutoMapper(assemblies);
+
             services.AddScoped<ICarsService, CarsService>();
             services.AddScoped<ICarsRepository, CarsRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

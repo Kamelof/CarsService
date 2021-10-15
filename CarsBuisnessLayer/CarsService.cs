@@ -1,4 +1,5 @@
-﻿using CarsBuisnessLayer.DTOs;
+﻿using AutoMapper;
+using CarsBuisnessLayer.DTOs;
 using CarsCore.Models;
 using CarsDataLayer;
 using System;
@@ -9,11 +10,13 @@ namespace CarsBuisnessLayer
 {
     public class CarsService : ICarsService
     {
-        public static CarsRepository _carsRepository;
+        public readonly ICarsRepository _carsRepository;
+        private readonly IMapper _mapper;
 
-        static CarsService()
+        public CarsService(ICarsRepository carsRepository, IMapper mapper)
         {
-            _carsRepository = new CarsRepository();
+            _carsRepository = carsRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Car>> GetAllCars()
@@ -40,18 +43,10 @@ namespace CarsBuisnessLayer
         public async Task<Guid> CreateCar(CarDTO carDTO)
         {
             await Task.CompletedTask;
-            if (Enum.TryParse(typeof(Color), carDTO.Color, out var color) && Enum.TryParse(typeof(Carcase), carDTO.Carcase, out var carcase))
-            {
-                Car car = new Car
-                {
-                    Color = (Color)color,
-                    Carcase = (Carcase)carcase,
-                    ReleasDate = carDTO.ReleasDate,
-                    Title = carDTO.Title,
-                    weight = carDTO.Weight,
-                    Price = carDTO.Price
-                };
 
+            Car car = _mapper.Map<Car>(carDTO);
+            if (car != null)
+            {
                 return _carsRepository.Create(car);
             }
 
@@ -61,19 +56,11 @@ namespace CarsBuisnessLayer
         public async Task<Car> UpdateCar(Guid id, CarDTO carDTO)
         {
             await Task.CompletedTask;
-            if (Enum.TryParse(typeof(Color), carDTO.Color, out var color) && Enum.TryParse(typeof(Carcase), carDTO.Carcase, out var carcase))
-            {
-                Car car = new Car
-                {
-                    Id = id,
-                    Color = (Color)color,
-                    Carcase = (Carcase)carcase,
-                    ReleasDate = carDTO.ReleasDate,
-                    Title = carDTO.Title,
-                    weight = carDTO.Weight,
-                    Price = carDTO.Price
-                };
 
+            Car car = _mapper.Map<Car>(carDTO);
+            if (car != null)
+            {
+                car.Id = id;
                 return _carsRepository.Update(car);
             }
 

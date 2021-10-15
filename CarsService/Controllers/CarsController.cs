@@ -10,11 +10,11 @@ namespace CarsPresentationLayer.Controllers
     [Route("[controller]")]
     public class CarsController : ControllerBase
     {
-        private static CarsService _carsService;
+        private readonly ICarsService _carsService;
 
-        static CarsController()
+        public CarsController(ICarsService carsService)
         {
-            _carsService = new CarsService();
+            _carsService = carsService;
         }
 
         [HttpGet]

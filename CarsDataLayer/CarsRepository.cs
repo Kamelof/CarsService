@@ -49,7 +49,10 @@ namespace CarsDataLayer
         public Car DeleteById(Guid id)
         {
             Car neededToDeleteCar = _cars.FirstOrDefault(x => x.Id == id);
-            _cars.Remove(neededToDeleteCar);
+            if (neededToDeleteCar != null)
+            {
+                _cars.Remove(neededToDeleteCar);
+            }
 
             return neededToDeleteCar;
         }

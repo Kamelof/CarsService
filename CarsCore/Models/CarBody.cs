@@ -1,6 +1,6 @@
 ﻿namespace CarsCore.Models
 {
-    public enum Carcase
+    public enum CarBody
     {
         Sedan,
         Hatchback,
