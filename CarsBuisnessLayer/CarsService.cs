@@ -21,47 +21,27 @@ namespace CarsBuisnessLayer
 
         public async Task<IEnumerable<Car>> GetAllCars()
         {
-            await Task.CompletedTask;
-
-            return _carsRepository.GetAll();
+            return await _carsRepository.GetAll();
         }
 
-        public async Task<Car> GetCarById(Guid id)
-        {
-            await Task.CompletedTask;
+        public async Task<Car> GetCarById(Guid id) => await _carsRepository.GetById(id);
 
-            return _carsRepository.GetById(id);
-        }
-
-        public async Task<Car> DeleteCarById(Guid id)
-        {
-            await Task.CompletedTask;
-
-            return _carsRepository.DeleteById(id);
-        }
+        public async Task<Car> DeleteCarById(Guid id) => await _carsRepository.DeleteById(id);
 
         public async Task<Guid> CreateCar(CarDTO carDTO)
         {
-            await Task.CompletedTask;
-
             Car car = _mapper.Map<Car>(carDTO);
-            if (car != null)
-            {
-                return _carsRepository.Create(car);
-            }
 
-            return Guid.Empty;
+            return await _carsRepository.Create(car);
         }
 
         public async Task<Car> UpdateCar(Guid id, CarDTO carDTO)
         {
-            await Task.CompletedTask;
-
             Car car = _mapper.Map<Car>(carDTO);
             if (car != null)
             {
                 car.Id = id;
-                return _carsRepository.Update(car);
+                return await _carsRepository.Update(car);
             }
 
             return null;

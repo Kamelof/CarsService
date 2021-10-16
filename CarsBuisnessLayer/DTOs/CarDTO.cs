@@ -6,7 +6,7 @@
         public string Title { get; set; }
         public double Price { get; set; }
         public string Color { get; set; }
-        public int Weight { get; set; }
+        public int Weigth { get; set; }
         public string CarBody { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using CarsBuisnessLayer.MapperProfiles;
 using CarsDataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,14 +16,17 @@ namespace CarsPresentationLayer
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<EFCoreContext>(options =>
+                options.UseSqlServer(_configuration["ConnectionStrings:default"]));
+
             var assemblies = new[]
             {
                 Assembly.GetAssembly(typeof(CarsProfile))
@@ -31,7 +35,7 @@ namespace CarsPresentationLayer
             services.AddAutoMapper(assemblies);
 
             services.AddScoped<ICarsService, CarsService>();
-            services.AddScoped<ICarsRepository, CarsRepository>();
+            services.AddScoped<ICarsRepository, CarsRepositoryDb>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

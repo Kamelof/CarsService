@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Color]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
+    [Title] NVARCHAR(50) NOT NULL UNIQUE
+)
