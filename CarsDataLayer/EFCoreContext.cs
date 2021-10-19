@@ -21,8 +21,8 @@ namespace CarsDataLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Car>().ToTable("Cars");
-            modelBuilder.Entity<CarBodyDb>().ToTable("CarBody");
-            modelBuilder.Entity<ColorDb>().ToTable("Color");
+            modelBuilder.Entity<CarBodyDb>().ToTable("CarBodies");
+            modelBuilder.Entity<ColorDb>().ToTable("Colors");
             modelBuilder.Entity<Car>(entity =>
             {
                 entity.HasKey(i => i.Id);

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Color]
+﻿CREATE TABLE [dbo].[Colors]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
     [Title] NVARCHAR(50) NOT NULL UNIQUE

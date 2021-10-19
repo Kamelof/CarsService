@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsDataLayer", "CarsDataLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsCore", "CarsCore\CarsCore.csproj", "{DE31AD49-8D34-47D3-8284-B9A50279C5D8}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CarsMsSql", "CarsMsSql\CarsMsSql.sqlproj", "{B6CB99F2-F46B-4D22-81D8-C112783704E8}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CarsMsSql", "CarsMsSql\CarsMsSql.sqlproj", "{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +35,12 @@ Global
 		{DE31AD49-8D34-47D3-8284-B9A50279C5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE31AD49-8D34-47D3-8284-B9A50279C5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE31AD49-8D34-47D3-8284-B9A50279C5D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6CB99F2-F46B-4D22-81D8-C112783704E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6CB99F2-F46B-4D22-81D8-C112783704E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6CB99F2-F46B-4D22-81D8-C112783704E8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B6CB99F2-F46B-4D22-81D8-C112783704E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6CB99F2-F46B-4D22-81D8-C112783704E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6CB99F2-F46B-4D22-81D8-C112783704E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

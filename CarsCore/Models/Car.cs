@@ -13,9 +13,11 @@ namespace CarsCore.Models
         [Column("ColorId")]
         [JsonIgnore]
         public Color Color { get; set; }
+        public string ColorTitle { get => Color.ToString(); }
         public int Weight { get; set; }
         [Column("CarBodyId")]
         [JsonIgnore]
         public CarBody CarBody { get; set; }
+        public string CarBodyTitle { get => CarBody.ToString(); }
     }
 }

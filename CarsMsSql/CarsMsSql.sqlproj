@@ -6,7 +6,7 @@
     <Name>CarsMsSql</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{b6cb99f2-f46b-4d22-81d8-c112783704e8}</ProjectGuid>
+    <ProjectGuid>{87b1ea1e-c033-4d3a-b3a7-6cbf3889a184}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -56,13 +56,13 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\CarBodies.sql" />
-    <Build Include="Tables\Cars.sql" />
+    <Build Include="Cars.sql" />
+    <Build Include="Colors.sql" />
+    <Build Include="CarBodies.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Colors.sql" />
+    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
