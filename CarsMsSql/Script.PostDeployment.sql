@@ -27,4 +27,7 @@ insert into CarBodies (Title) values ('Coupe');
 insert into CarBodies (Title) values ('Cabriolet');
 insert into CarBodies (Title) values ('Pickup');
 
-insert into Cars values (NEWID(), 1998, 'BMW', 35.2, 3, 2452, 0);
+declare @idColor int = (select Id from Colors where Title = 'Green');
+declare @idCarBody int = (select Id from CarBodies where Title = 'Sedan');
+
+insert into Cars values (NEWID(), 1998, 'BMW', 35.2, 2452, @idColor, @idCarBody);

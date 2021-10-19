@@ -3,7 +3,7 @@
 	    [Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
         [ReleasDate] INT NOT NULL, 
         [Title] NVARCHAR(50) NOT NULL, 
-        [Price] NUMERIC(12, 2) NOT NULL, 
+        [Price] FLOAT NOT NULL, 
         [Weight] INT NOT NULL, 
         [ColorId] INT NOT NULL, 
         [CarBodyId] INT NOT NULL,
