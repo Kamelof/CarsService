@@ -19,6 +19,7 @@ namespace CarsDataLayer
         public async Task<Guid> Create(Car car)
         {
             car.Id = Guid.NewGuid();
+            var dbColor = _dbContext.Colors.Where(x => x.Title == car.Color.ToString());
             await _dbContext.Cars.AddAsync(car);
             await _dbContext.SaveChangesAsync();
 
