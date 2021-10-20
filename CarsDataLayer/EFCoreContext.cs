@@ -15,14 +15,13 @@ namespace CarsDataLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Car>().ToTable("Cars");
             modelBuilder.Entity<CarBodyDb>().ToTable("CarBodies");
             modelBuilder.Entity<ColorDb>().ToTable("Colors");
+            modelBuilder.Entity<Car>().ToTable("Cars");
             modelBuilder.Entity<Car>(entity =>
             {
                 entity.HasKey(i => i.Id);

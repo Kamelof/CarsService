@@ -16,7 +16,7 @@ namespace CarsBuisnessLayer.MapperProfiles
                 .ForMember(x => x.Weight, opt => opt.MapFrom(src => src.Weigth))
                 .ForMember(x => x.Id, opt => opt.Ignore())
                 .ForMember(x => x.Color, opt => opt.MapFrom(src => ToColor(src.Color)))
-                .ForMember(x => x.CarBody, opt => opt.MapFrom(src => ToColor(src.CarBody)));
+                .ForMember(x => x.CarBody, opt => opt.MapFrom(src => ToCarBody(src.CarBody)));
         }
 
         private Color ToColor(string color)
