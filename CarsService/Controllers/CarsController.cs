@@ -30,12 +30,20 @@ namespace CarsPresentationLayer.Controllers
         {
             var item = await _carsService.GetCarById(id);
 
-            if(item != null)
+            if (item != null)
             {
                 return Ok(item);
             }
 
             return NotFound();
+        }
+
+        [HttpGet("query")]
+        public async Task<IActionResult> SearchCar(string query)
+        {
+            await Task.CompletedTask;
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]
