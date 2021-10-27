@@ -31,6 +31,8 @@ namespace CarsPresentationLayer
             services.AddDbContext<EFCoreContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:default"]));
 
+            services.AddHttpContextAccessor();
+
             services.Configure<AuthOptions>(Configuration.GetSection(nameof(AuthOptions)));
             var authOptions = Configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
             services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)

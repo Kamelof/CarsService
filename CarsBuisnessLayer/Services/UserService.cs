@@ -20,9 +20,13 @@ namespace CarsBuisnessLayer.Services
 
         public async Task<Role?> GetRoleByLoginInfoAsync(LoginInfo loginInfo)
         {
-            loginInfo.Password = _hashService.HashString(loginInfo.Password);
+            LoginInfo hashedLoginInfo = new()
+            {
+                Login = loginInfo.Login,
+                Password = _hashService.HashString(loginInfo.Password)
+            };
 
-            return await _userRepository.GetRoleByLoginInfoAsync(loginInfo);
+            return await _userRepository.GetRoleByLoginInfoAsync(hashedLoginInfo);
         }
 
         public async Task UpdatePasswordAsync(LoginInfo loginInfo)

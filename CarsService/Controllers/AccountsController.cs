@@ -3,6 +3,7 @@ using CarsCore.Models;
 using CarsCore.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,11 +16,16 @@ namespace CarsPresentationLayer.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
+        private readonly ILogger<AccountsController> _logger;
 
-        public AccountsController(IAuthService authService, IUserService userService)
+        public AccountsController(
+            IAuthService authService,
+            IUserService userService,
+            ILogger<AccountsController> logger)
         {
             _authService = authService;
             _userService = userService;
+            _logger = logger;
         }
 
         [HttpPost("manager")]
