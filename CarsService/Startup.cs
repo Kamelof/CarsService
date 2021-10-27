@@ -1,6 +1,10 @@
-using CarsBuisnessLayer;
+using CarsBuisnessLayer.Interfaces;
 using CarsBuisnessLayer.MapperProfiles;
+using CarsBuisnessLayer.Services;
+using CarsCore.Options;
 using CarsDataLayer;
+using CarsDataLayer.Interfaces;
+using CarsDataLayer.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -16,16 +20,35 @@ namespace CarsPresentationLayer
     {
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
-        public IConfiguration _configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EFCoreContext>(options =>
-                options.UseSqlServer(_configuration["ConnectionStrings:default"]));
+                options.UseSqlServer(Configuration["ConnectionStrings:default"]));
+
+            services.Configure<AuthOptions>(Configuration.GetSection(nameof(AuthOptions)));
+            var authOptions = Configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
+            services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = authOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = authOptions.Audience,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey
+                            (System.Text.Encoding.ASCII.GetBytes(authOptions.SecretKey)),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
 
             var assemblies = new[]
             {
@@ -34,8 +57,12 @@ namespace CarsPresentationLayer
 
             services.AddAutoMapper(assemblies);
 
-            services.AddScoped<ICarsService, CarsService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICarsRepository, CarsRepositoryDb>();
+            services.AddScoped<ICarsService, CarsService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IHashService, HashService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

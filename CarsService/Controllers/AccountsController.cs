@@ -1,9 +1,10 @@
-﻿using CarsCore.Models;
-using Microsoft.AspNetCore.Http;
+﻿using CarsBuisnessLayer.Interfaces;
+using CarsCore.Models;
+using CarsCore.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarsPresentationLayer.Controllers
@@ -12,25 +13,53 @@ namespace CarsPresentationLayer.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        private readonly IAuthService _authService;
+        private readonly IUserService _userService;
+
+        public AccountsController(IAuthService authService, IUserService userService)
+        {
+            _authService = authService;
+            _userService = userService;
+        }
+
         [HttpPost("manager")]
-        public async Task<IActionResult> CreateManagerAccount(AccountInfo accountInfo)
+        public async Task<IActionResult> CreateManager(AccountInfo accountInfo)
         {
             await Task.CompletedTask;
             return Ok();
         }
 
         [HttpPut("mark_obsolete")]
-        public async Task<IActionResult> MarkAccountsPasswordObsolete (List<Guid> accountsIds)
+        public async Task<IActionResult> MarkAccountsPasswordObsolete(List<Guid> accountsIds)
         {
             await Task.CompletedTask;
             return Ok();
         }
 
+        [Authorize(Roles = nameof(Role.Admin))]
         [HttpPut("password")]
-        public async Task<IActionResult> UpdatePassword(string oldPassword, string newPassword)
+        public async Task<IActionResult> UpdatePassword(PasswordChangeRequest request)
         {
-            await Task.CompletedTask;
-            return Ok();
+            var authHeader = Request.Headers["Authorization"][0];
+
+            var userInfo = _authService.GetUserInfoFromToken(authHeader);
+
+            var loginInfo = new LoginInfo
+            {
+                Login = userInfo.Login,
+                Password = request.OldPassword
+            };
+
+            var passwordCorrect = await _userService.VerifyPasswordAsync(loginInfo);
+            if (passwordCorrect)
+            {
+                loginInfo.Password = request.NewPassword;
+                await _userService.UpdatePasswordAsync(loginInfo);
+
+                return Ok("Password updated!");
+            }
+
+            return BadRequest("Invalid login or password!");
         }
 
         [HttpPut("info")]
@@ -43,11 +72,22 @@ namespace CarsPresentationLayer.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginInfo loginInfo)
         {
-            await Task.CompletedTask;
-            return Ok();
+            var userRole = await _userService.GetRoleByLoginInfoAsync(loginInfo);
+            if (userRole != null)
+            {
+                var token = _authService.CreateAuthToken(new UserInfo
+                {
+                    Login = loginInfo.Login,
+                    Role = userRole.Value
+                });
+
+                return Ok(token);
+            }
+
+            return BadRequest("Invalid username or password.");
         }
 
-        [HttpPut("register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(AccountInfo accountInfo)
         {
             await Task.CompletedTask;

@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using CarsBuisnessLayer.DTOs;
+using CarsBuisnessLayer.Interfaces;
 using CarsCore.Models;
-using CarsDataLayer;
+using CarsDataLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarsBuisnessLayer
+namespace CarsBuisnessLayer.Services
 {
     public class CarsService : ICarsService
     {

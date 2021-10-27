@@ -1,5 +1,8 @@
-﻿namespace CarsCore.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace CarsCore.Models
 {
+    [Owned]
     public class LoginInfo
     {
         public string Login { get; set; }

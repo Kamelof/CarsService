@@ -1,31 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
-  <Operation Name="Rename Refactor" Key="34be5c00-c733-472d-8f77-7895fd9c1d7e" ChangeDateTime="10/20/2021 09:05:58">
-    <Property Name="ElementName" Value="[dbo].[Cars].[ColorId]" />
+  <Operation Name="Rename Refactor" Key="c0f33930-dc33-4b68-ba3b-8e164276ad49" ChangeDateTime="10/25/2021 10:01:13">
+    <Property Name="ElementName" Value="[dbo].[Users].[AccountType]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
-    <Property Name="ParentElementName" Value="[dbo].[Cars]" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
     <Property Name="ParentElementType" Value="SqlTable" />
-    <Property Name="NewName" Value="Color" />
+    <Property Name="NewName" Value="AccountTypeId" />
   </Operation>
-  <Operation Name="Rename Refactor" Key="eb5f8eda-d50f-4261-b975-448e3f812abf" ChangeDateTime="10/20/2021 09:06:02">
-    <Property Name="ElementName" Value="[dbo].[Cars].[CarBodyId]" />
+  <Operation Name="Rename Refactor" Key="eff5a4f9-5047-4a53-a897-e6cc1150ddc1" ChangeDateTime="10/25/2021 10:05:29">
+    <Property Name="ElementName" Value="[dbo].[Users].[AccountTypeId]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
-    <Property Name="ParentElementName" Value="[dbo].[Cars]" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
     <Property Name="ParentElementType" Value="SqlTable" />
-    <Property Name="NewName" Value="CarBody" />
-  </Operation>
-  <Operation Name="Rename Refactor" Key="cf1eb1f8-985b-46cf-ada3-c68f11092653" ChangeDateTime="10/20/2021 09:26:37">
-    <Property Name="ElementName" Value="[dbo].[Cars].[Color]" />
-    <Property Name="ElementType" Value="SqlSimpleColumn" />
-    <Property Name="ParentElementName" Value="[dbo].[Cars]" />
-    <Property Name="ParentElementType" Value="SqlTable" />
-    <Property Name="NewName" Value="ColorId" />
-  </Operation>
-  <Operation Name="Rename Refactor" Key="b4fb2d3c-851e-4ce2-86fe-4a08038aee39" ChangeDateTime="10/20/2021 09:26:43">
-    <Property Name="ElementName" Value="[dbo].[Cars].[CarBody]" />
-    <Property Name="ElementType" Value="SqlSimpleColumn" />
-    <Property Name="ParentElementName" Value="[dbo].[Cars]" />
-    <Property Name="ParentElementType" Value="SqlTable" />
-    <Property Name="NewName" Value="CarBodyId" />
+    <Property Name="NewName" Value="RoleId" />
   </Operation>
 </Operations>

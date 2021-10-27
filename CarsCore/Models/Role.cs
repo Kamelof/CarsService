@@ -1,6 +1,6 @@
 ﻿namespace CarsCore.Models
 {
-    public enum AccountType
+    public enum Role
     {
         User,
         Manager,

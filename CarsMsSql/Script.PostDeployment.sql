@@ -31,3 +31,9 @@ declare @idColor int = (select Id from Colors where Title = 'Green');
 declare @idCarBody int = (select Id from CarBodies where Title = 'Sedan');
 
 insert into Cars values (NEWID(), 1998, 'BMW', 35.2, 2452, @idColor, @idCarBody);
+
+insert into Roles values (0, 'User');
+insert into Roles values (1, 'Manager');
+insert into Roles values (2, 'Admin');
+
+insert into Users values (NEWID(), 'Admin', 'Admin', 'Main', 'NgAgJYx5Rcu/glVJpfix6RB11/6aDevwy3dSV407NkM=', 2, 1);

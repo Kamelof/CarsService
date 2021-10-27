@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarsBuisnessLayer
+namespace CarsBuisnessLayer.Interfaces
 {
     public interface ICarsService
     {

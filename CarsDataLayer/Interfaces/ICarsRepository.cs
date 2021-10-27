@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarsDataLayer
+namespace CarsDataLayer.Interfaces
 {
     public interface ICarsRepository
     {
