@@ -25,7 +25,6 @@ namespace CarsPresentationLayer
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EFCoreContext>(options =>
@@ -34,7 +33,9 @@ namespace CarsPresentationLayer
             services.AddHttpContextAccessor();
 
             services.Configure<AuthOptions>(Configuration.GetSection(nameof(AuthOptions)));
-            var authOptions = Configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
+            services.Configure<SmtpOptions>(Configuration.GetSection(nameof(SmtpOptions)));
+
+            AuthOptions authOptions = Configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
             services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -52,7 +53,7 @@ namespace CarsPresentationLayer
                     };
                 });
 
-            var assemblies = new[]
+            Assembly[] assemblies = new[]
             {
                 Assembly.GetAssembly(typeof(CarsProfile))
             };
@@ -65,6 +66,7 @@ namespace CarsPresentationLayer
             services.AddScoped<ICarsService, CarsService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IHashService, HashService>();
+            services.AddScoped<ISmtpService, SmtpService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -73,7 +75,6 @@ namespace CarsPresentationLayer
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

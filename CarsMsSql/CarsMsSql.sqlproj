@@ -64,6 +64,7 @@
     <Build Include="Tables\Colors.sql" />
     <Build Include="Tables\Users.sql" />
     <Build Include="Tables\Roles.sql" />
+    <Build Include="Tables\Emails.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

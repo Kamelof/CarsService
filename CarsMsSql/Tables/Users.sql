@@ -6,6 +6,8 @@
     [LastName] NVARCHAR(50) NOT NULL, 
     [Password] NVARCHAR(50) NOT NULL, 
     [RoleId] INT NOT NULL DEFAULT 0, 
+    [EmailId] int NULL,
     [IsActive] BIT NOT NULL DEFAULT 0,
-    CONSTRAINT FK_Role FOREIGN KEY ([RoleId]) REFERENCES Roles(Id)
+    CONSTRAINT FK_Role FOREIGN KEY ([RoleId]) REFERENCES Roles(Id),
+    CONSTRAINT FK_Email FOREIGN KEY ([EmailId]) REFERENCES Emails(Id)
 )

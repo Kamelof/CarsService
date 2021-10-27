@@ -7,6 +7,7 @@ namespace CarsDataLayer
     {
         public DbSet<Car> Cars { get; set; }
         public DbSet<AccountInfo> Users { get; set; }
+        public DbSet<Email> Emails { get; set; }
 
         public EFCoreContext(DbContextOptions<EFCoreContext> options) : base(options)
         {
