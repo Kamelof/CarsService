@@ -55,18 +55,21 @@ namespace CarsPresentationLayer
 
             Assembly[] assemblies = new[]
             {
-                Assembly.GetAssembly(typeof(CarsProfile))
+                Assembly.GetAssembly(typeof(CarsProfile)),
+                Assembly.GetAssembly(typeof(AccountInfoProfile))
             };
 
             services.AddAutoMapper(assemblies);
 
-            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICarsRepository, CarsRepositoryDb>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICarsService, CarsService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IHashService, HashService>();
             services.AddScoped<ISmtpService, SmtpService>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -88,6 +91,7 @@ namespace CarsPresentationLayer
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

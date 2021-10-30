@@ -1,4 +1,5 @@
-﻿using CarsBuisnessLayer.Interfaces;
+﻿using CarsBuisnessLayer.DTOs;
+using CarsBuisnessLayer.Interfaces;
 using CarsCore.Models;
 using CarsCore.Requests;
 using Microsoft.AspNetCore.Authorization;
@@ -17,15 +18,18 @@ namespace CarsPresentationLayer.Controllers
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
         private readonly ILogger<AccountsController> _logger;
+        private readonly IRegistrationService _registrationService;
 
         public AccountsController(
             IAuthService authService,
             IUserService userService,
-            ILogger<AccountsController> logger)
+            ILogger<AccountsController> logger,
+            IRegistrationService registrationService)
         {
             _authService = authService;
             _userService = userService;
             _logger = logger;
+            _registrationService = registrationService;
         }
 
         [HttpPost("manager")]
@@ -94,10 +98,9 @@ namespace CarsPresentationLayer.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(AccountInfo accountInfo)
+        public async Task<IActionResult> Register(AccountInfoDTO accountInfoDTO)
         {
-            await Task.CompletedTask;
-            return Ok();
+            return Ok(await _registrationService.RegisterUser(accountInfoDTO));
         }
     }
 }

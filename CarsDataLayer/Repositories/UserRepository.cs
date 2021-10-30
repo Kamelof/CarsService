@@ -1,6 +1,7 @@
 ﻿using CarsCore.Models;
 using CarsDataLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,16 @@ namespace CarsDataLayer.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Guid> AddUserAsync(AccountInfo accountInfo)
+        {
+            accountInfo.Id = Guid.NewGuid();
+            _dbContext.Users.Add(accountInfo);
+            var result = await _dbContext.SaveChangesAsync();
+
+            return result != 0 ? accountInfo.Id : Guid.Empty;
+        }
+
         public async Task<Role?> GetRoleByLoginInfoAsync(LoginInfo loginInfo)
         {
             await GetAccountInfoByLoginInfo(loginInfo);
