@@ -50,18 +50,17 @@ namespace CarsPresentationLayer.Controllers
         [HttpPut("password")]
         public async Task<IActionResult> UpdatePassword(PasswordChangeRequest request)
         {
-            var authHeader = Request.Headers["Authorization"][0];
+            string authHeader = Request.Headers["Authorization"][0];
 
-            var userInfo = _authService.GetUserInfoFromToken(authHeader);
+            string userLogin = _authService.GetUserLoginFromToken(authHeader);
 
-            var loginInfo = new LoginInfo
+            LoginInfo loginInfo = new()
             {
-                Login = userInfo.Login,
+                Login = userLogin,
                 Password = request.OldPassword
             };
 
-            var passwordCorrect = await _userService.VerifyPasswordAsync(loginInfo);
-            if (passwordCorrect)
+            if (await _userService.VerifyPasswordAsync(loginInfo))
             {
                 loginInfo.Password = request.NewPassword;
                 await _userService.UpdatePasswordAsync(loginInfo);
@@ -82,14 +81,15 @@ namespace CarsPresentationLayer.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginInfo loginInfo)
         {
-            var userRole = await _userService.GetRoleByLoginInfoAsync(loginInfo);
+            Role? userRole = await _userService.GetRoleByLoginInfoAsync(loginInfo);
             if (userRole != null)
             {
-                var token = _authService.CreateAuthToken(new UserInfo
-                {
-                    Login = loginInfo.Login,
-                    Role = userRole.Value
-                });
+                string token = _authService.CreateAuthToken(
+                    new UserInfo
+                    {
+                        Login = loginInfo.Login,
+                        Role = userRole.Value
+                    });
 
                 return Ok(token);
             }

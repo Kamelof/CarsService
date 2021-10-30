@@ -20,15 +20,14 @@ namespace CarsDataLayer.Repositories
         {
             accountInfo.Id = Guid.NewGuid();
             _dbContext.Users.Add(accountInfo);
-            var result = await _dbContext.SaveChangesAsync();
+            int result = await _dbContext.SaveChangesAsync();
 
             return result != 0 ? accountInfo.Id : Guid.Empty;
         }
 
         public async Task<Role?> GetRoleByLoginInfoAsync(LoginInfo loginInfo)
         {
-            await GetAccountInfoByLoginInfo(loginInfo);
-            var account = await GetAccountInfoByLoginInfoAsync(loginInfo);
+            AccountInfo account = await GetAccountInfoByLoginInfoAsync(loginInfo);
 
             return account?.Role;
         }
@@ -56,7 +55,7 @@ namespace CarsDataLayer.Repositories
 
         public async Task UpdatePasswordAsync(LoginInfo loginInfo)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.LoginInfo.Login == loginInfo.Login);
+            AccountInfo user = await _dbContext.Users.FirstOrDefaultAsync(x => x.LoginInfo.Login == loginInfo.Login);
             user.LoginInfo.Password = loginInfo.Password;
 
             await _dbContext.SaveChangesAsync();
@@ -64,15 +63,13 @@ namespace CarsDataLayer.Repositories
 
         public async Task<bool> VerifyLoginInfoAsync(LoginInfo loginInfo)
         {
-            var account = await GetAccountInfoByLoginInfoAsync(loginInfo);
+            AccountInfo account = await GetAccountInfoByLoginInfoAsync(loginInfo);
 
             return account != null;
         }
-        private async Task<AccountInfo> GetAccountInfoByLoginInfoAsync(LoginInfo loginInfo)
-        {
-            return await _dbContext.Users.FirstOrDefaultAsync(accountInfo =>
-                            accountInfo.LoginInfo.Login == loginInfo.Login &&
-                            accountInfo.LoginInfo.Password == loginInfo.Password);
-        }
+        private async Task<AccountInfo> GetAccountInfoByLoginInfoAsync(LoginInfo loginInfo) => 
+            await _dbContext.Users.FirstOrDefaultAsync(accountInfo =>
+            accountInfo.LoginInfo.Login == loginInfo.Login &&
+            accountInfo.LoginInfo.Password == loginInfo.Password);
     }
 }

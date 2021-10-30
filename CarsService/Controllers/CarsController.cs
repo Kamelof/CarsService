@@ -3,6 +3,8 @@ using CarsBuisnessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using CarsCore.Models;
 
 namespace CarsPresentationLayer.Controllers
 {
@@ -20,7 +22,7 @@ namespace CarsPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCars()
         {
-            var items = await _carsService.GetAllCars();
+            IEnumerable<Car> items = await _carsService.GetAllCars();
 
             return Ok(items);
         }
@@ -28,7 +30,7 @@ namespace CarsPresentationLayer.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCarById(Guid id)
         {
-            var item = await _carsService.GetCarById(id);
+            Car item = await _carsService.GetCarById(id);
 
             if (item != null)
             {
@@ -49,7 +51,7 @@ namespace CarsPresentationLayer.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCarById(Guid id)
         {
-            var item = await _carsService.DeleteCarById(id);
+            Car item = await _carsService.DeleteCarById(id);
 
             if (item != null)
             {
@@ -62,7 +64,7 @@ namespace CarsPresentationLayer.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCar(CarDTO car)
         {
-            var guid = await _carsService.CreateCar(car);
+            Guid guid = await _carsService.CreateCar(car);
 
             if (guid != Guid.Empty)
             {
@@ -75,7 +77,7 @@ namespace CarsPresentationLayer.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCar(Guid id, CarDTO car)
         {
-            var updetedCar = await _carsService.UpdateCar(id, car);
+            Car updetedCar = await _carsService.UpdateCar(id, car);
 
             if (updetedCar != null)
             {

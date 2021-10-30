@@ -30,7 +30,7 @@ namespace CarsBuisnessLayer.Services
 
             if (!string.IsNullOrEmpty(accountInfoDTO.Email))
             {
-                var email = new Email
+                Email email = new()
                 {
                     PostName = accountInfoDTO.Email,
                     IsConfirmed = false,
@@ -40,7 +40,7 @@ namespace CarsBuisnessLayer.Services
                 emailId = await _emailRepository.RegisterEmailAsync(email);
             }
 
-            var accountInfo = _mapper.Map<AccountInfo>(accountInfoDTO);
+            AccountInfo accountInfo = _mapper.Map<AccountInfo>(accountInfoDTO);
             accountInfo.EmailId = emailId.Value;
 
             return await _userRepository.AddUserAsync(accountInfo);

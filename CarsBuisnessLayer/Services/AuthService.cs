@@ -27,13 +27,13 @@ namespace CarsBuisnessLayer.Services
 
         public string CreateAuthToken(UserInfo userInfo)
         {
-            var claims = new List<Claim>
+            List<Claim> claims = new()
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, userInfo.Login),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, userInfo.Role.ToString())
             };
 
-            var token = new JwtSecurityToken(
+            JwtSecurityToken token = new(
                     issuer: _authOptions.Issuer,
                     audience: _authOptions.Audience,
                     notBefore: DateTime.UtcNow,
@@ -44,19 +44,15 @@ namespace CarsBuisnessLayer.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public UserInfo GetUserInfoFromToken(string headerToken)
+        public string GetUserLoginFromToken(string headerToken)
         {
-            var token = headerToken.Substring(headerToken.IndexOf(' ') + 1);
+            string token = headerToken.Substring(headerToken.IndexOf(' ') + 1);
 
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(token);
-            var tokenS = jsonToken as JwtSecurityToken;
+            JwtSecurityTokenHandler handler = new();
+            SecurityToken jsonToken = handler.ReadToken(token);
+            JwtSecurityToken tokenS = jsonToken as JwtSecurityToken;
 
-            return new UserInfo
-            {
-                Login = tokenS.Claims.First(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value,
-                Role = (Role)Enum.Parse(typeof(Role), tokenS.Claims.First(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value)
-            };
+            return tokenS.Claims.First(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
         }
     }
 }
