@@ -5,6 +5,6 @@ namespace CarsBuisnessLayer.Interfaces
 {
     public interface ISmtpService
     {
-        Task SendMassageAsync(MailDTO mailDTO);
+        Task SendMessageAsync(MailDTO mailDTO);
     }
 }

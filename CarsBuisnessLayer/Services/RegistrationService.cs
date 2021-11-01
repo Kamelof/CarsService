@@ -13,37 +13,82 @@ namespace CarsBuisnessLayer.Services
         private readonly IUserRepository _userRepository;
         private readonly IEmailRepository _emailRepository;
         private readonly IMapper _mapper;
+        private readonly ISmtpService _smtpService;
 
         public RegistrationService(
             IUserRepository userRepository,
             IEmailRepository emailRepository,
-            IMapper mapper)
+            IMapper mapper,
+            ISmtpService smtpService)
         {
             _userRepository = userRepository;
             _emailRepository = emailRepository;
             _mapper = mapper;
+            _smtpService = smtpService;
         }
 
-        public async Task<Guid> RegisterUser(AccountInfoDTO accountInfoDTO)
+        public async Task<Guid> RegisterUserAsync(AccountInfoDTO accountInfoDTO, string uri)
         {
-            int? emailId = null;
+            string confirmationString = Guid.NewGuid().ToString();
+            int? emailId = !string.IsNullOrEmpty(accountInfoDTO.Email)
+                ? await SaveUserEmailAsync(accountInfoDTO, confirmationString)
+                : null;
 
-            if (!string.IsNullOrEmpty(accountInfoDTO.Email))
+            var result = await SaveUserInfoAsync(accountInfoDTO, emailId);
+
+            if(emailId.HasValue)
             {
-                Email email = new()
-                {
-                    PostName = accountInfoDTO.Email,
-                    IsConfirmed = false,
-                    ConfirmationString = "qwerty123qwerty"
-                };
-
-                emailId = await _emailRepository.RegisterEmailAsync(email);
+                await SendConfirmationEmailAsync(accountInfoDTO.Email, uri, confirmationString);
             }
 
-            AccountInfo accountInfo = _mapper.Map<AccountInfo>(accountInfoDTO);
+            return result;
+        }
+
+        public async Task<bool> ConfirmEmailAsync(string email, string message)
+        {
+            string confirmationMessage = await _emailRepository.GetConfirmMessageAsync(email);
+            bool result = confirmationMessage == message;
+
+            if (result)
+            {
+                await _emailRepository.ConfirmEmailAsync(email);
+            }
+
+            return result;
+        }
+        private async Task<Guid> SaveUserInfoAsync(AccountInfoDTO accountInfoDTO, int? emailId)
+        {
+            var accountInfo = _mapper.Map<AccountInfo>(accountInfoDTO);
             accountInfo.EmailId = emailId.Value;
 
-            return await _userRepository.AddUserAsync(accountInfo);
+            var result = await _userRepository.AddUserAsync(accountInfo);
+            return result;
+        }
+
+        private async Task SendConfirmationEmailAsync(string email, string uri, string confirmationString)
+        {
+            MailDTO mailDTO = new()
+            {
+                To = email,
+                Subject = "CarService Email confirmation",
+                Body = $"{uri}/accounts/" +
+                $"confirm?email={email}" +
+                $"&message={confirmationString}"
+            };
+
+            await _smtpService.SendMessageAsync(mailDTO);
+        }
+
+        private async Task<int> SaveUserEmailAsync(AccountInfoDTO accountInfoDTO, string confirmationString)
+        {
+            Email email = new()
+            {
+                PostName = accountInfoDTO.Email,
+                IsConfirmed = false,
+                ConfirmationString = confirmationString
+            };
+
+            return await _emailRepository.RegisterEmailAsync(email);
         }
     }
 }

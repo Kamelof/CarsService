@@ -100,7 +100,13 @@ namespace CarsPresentationLayer.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(AccountInfoDTO accountInfoDTO)
         {
-            return Ok(await _registrationService.RegisterUser(accountInfoDTO));
+            return Ok(await _registrationService.RegisterUserAsync(accountInfoDTO, Request.Scheme + "://" + Request.Host));
+        }
+
+        [HttpGet("confirm")]
+        public async Task<IActionResult> ConfirmUserEmail(string email, string message)
+        {
+            return Ok(await _registrationService.ConfirmEmailAsync(email, message));
         }
     }
 }

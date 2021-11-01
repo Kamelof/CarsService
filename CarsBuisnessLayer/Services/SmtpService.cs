@@ -17,7 +17,7 @@ namespace CarsBuisnessLayer.Services
             _smptOptions = smptOptions.Value;
         }
 
-        public async Task SendMassageAsync(MailDTO mailDTO)
+        public async Task SendMessageAsync(MailDTO mailDTO)
         {
             SmtpClient SmtpClient = new()
             {
