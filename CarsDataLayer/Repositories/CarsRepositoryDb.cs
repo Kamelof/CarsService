@@ -1,4 +1,4 @@
-﻿using CarsCore.Models;
+﻿using CarsCore.Models.CarModels;
 using CarsDataLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;

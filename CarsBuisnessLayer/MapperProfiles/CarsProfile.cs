@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CarsBuisnessLayer.DTOs;
-using CarsCore.Models;
+using CarsCore.Models.CarModels;
 using System;
 
 namespace CarsBuisnessLayer.MapperProfiles

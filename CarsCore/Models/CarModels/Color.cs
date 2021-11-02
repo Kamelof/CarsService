@@ -1,4 +1,4 @@
-﻿namespace CarsCore.Models
+﻿namespace CarsCore.Models.CarModels
 {
     public enum Color
     {

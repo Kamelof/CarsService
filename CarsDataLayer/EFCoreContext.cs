@@ -1,4 +1,5 @@
 ﻿using CarsCore.Models;
+using CarsCore.Models.CarModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarsDataLayer

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using CarsCore;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,24 @@ namespace CarsPresentationLayer
     {
         public async Task SendMessage(string user, string message)
         {
-            if (message.StartsWith('/'))
+            if (message.StartsWith(Constants.CommandStartSign))
             {
                 message = message[1..];
-                var splitted = message.Split(' ');
-                switch (splitted[0])
+                var splitted = message.Split(Constants.CommandElementSeparator);
+                bool result = false;
+                switch (splitted[0].ToLower())
                 {
-                    case "msg":
+                    case Constants.Commands.PrivateMessage:
                         if (splitted.Length > 2)
                         {
                             var id = splitted[1];
-                            var personalMessage = string.Join(' ', splitted[2..]);
+                            var personalMessage = string.Join(Constants.CommandElementSeparator, splitted[2..]);
                             await Clients.Client(id).SendAsync("ReceiveMessage", Context.ConnectionId, personalMessage);
+                            result = true;
                         }
+                        break;
+                    case Constants.Commands.Help:
+
                         break;
                 }
             }
@@ -34,8 +40,8 @@ namespace CarsPresentationLayer
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.Others.SendAsync("ReceiveMessage", "SYSTEM", $"User {Context.ConnectionId} connected!");
-            await Clients.Caller.SendAsync("ReceiveMessage", "SYSTEM", $"Greetings newcomer!");
+            await Clients.Others.SendAsync("ReceiveMessage", Constants.ServerMessageSenderName, $"User {Context.ConnectionId} connected!");
+            await Clients.Caller.SendAsync("ReceiveMessage", Constants.ServerMessageSenderName, $"Greetings newcomer!");
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using CarsCore.Models;
+using CarsCore.Models.CarModels;
 
 namespace CarsPresentationLayer.Controllers
 {

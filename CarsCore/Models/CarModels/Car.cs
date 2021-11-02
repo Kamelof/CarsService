@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace CarsCore.Models
+namespace CarsCore.Models.CarModels
 {
     public class Car
     {
