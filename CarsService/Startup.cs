@@ -27,6 +27,9 @@ namespace CarsPresentationLayer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+            services.AddHttpContextAccessor();
+
             services.AddDbContext<EFCoreContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:default"]));
 
@@ -97,6 +100,7 @@ namespace CarsPresentationLayer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }
