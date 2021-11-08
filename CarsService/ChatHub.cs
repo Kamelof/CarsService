@@ -1,47 +1,71 @@
-﻿using CarsCore;
+﻿using CarsBuisnessLayer;
+using CarsBuisnessLayer.Commands;
+using CarsCore;
+using CarsCore.Models.ChatModels;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarsPresentationLayer
+namespace ProductsPresentationLayer
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string user, string message)
-        {
-            if (message.StartsWith(Constants.CommandStartSign))
-            {
-                message = message[1..];
-                var splitted = message.Split(Constants.CommandElementSeparator);
-                bool result = false;
-                switch (splitted[0].ToLower())
-                {
-                    case Constants.Commands.PrivateMessage:
-                        if (splitted.Length > 2)
-                        {
-                            var id = splitted[1];
-                            var personalMessage = string.Join(Constants.CommandElementSeparator, splitted[2..]);
-                            await Clients.Client(id).SendAsync("ReceiveMessage", Context.ConnectionId, personalMessage);
-                            result = true;
-                        }
-                        break;
-                    case Constants.Commands.Help:
+        private static IList<ChatUserSettings> UserSettings;
+        private readonly ILogger<ChatHub> _logger;
 
-                        break;
-                }
-            }
-            else
-            {
-                await Clients.Others.SendAsync("ReceiveMessage", user, message);
-            }
+        static ChatHub()
+        {
+            UserSettings = new List<ChatUserSettings>();
+        }
+
+        public ChatHub(ILogger<ChatHub> logger)
+        {
+            _logger = logger;
+        }
+
+        public async Task SendMessage(string message)
+        {
+            Command command = CommandHelper.CreateCommand(message);
+
+            await command.Execute(this, UserSettings);
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.Others.SendAsync("ReceiveMessage", Constants.ServerMessageSenderName, $"User {Context.ConnectionId} connected!");
-            await Clients.Caller.SendAsync("ReceiveMessage", Constants.ServerMessageSenderName, $"Greetings newcomer!");
+            UserSettings.Add(
+                new ChatUserSettings
+                {
+                    ClientId = Context.ConnectionId
+                });
+
+            _logger.LogDebug(UserSettings.Count.ToString());
+
+            await Clients.Others.SendAsync(Constants.ClientMethods.ReceiveMessage,
+                CreateSystemMessage($"User {Context.ConnectionId} connected!"));
+            await Clients.Caller.SendAsync(Constants.ClientMethods.ReceiveMessage,
+               CreateSystemMessage($"Greetings newcomer!"));
         }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            UserSettings.Remove(
+                new ChatUserSettings
+                {
+                    ClientId = Context.ConnectionId
+                });
+            _logger.LogDebug(UserSettings.Count.ToString());
+
+            return base.OnDisconnectedAsync(exception);
+        }
+
+        private ChatMessage CreateSystemMessage(string message)
+            => new()
+            {
+                Sender = Constants.ServerMessageSenderName,
+                MessageColor = ConsoleColor.Blue,
+                Text = message
+            };
     }
 }

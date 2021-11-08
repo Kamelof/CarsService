@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarsCore.Models.ChatModels
 {
@@ -10,6 +6,6 @@ namespace CarsCore.Models.ChatModels
     {
         public string Sender { get; set; }
         public string Text { get; set; }
-        public string MessageColor { get; set }
+        public ConsoleColor MessageColor { get; set; }
     }
 }
