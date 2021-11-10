@@ -23,9 +23,7 @@ namespace CarsBuisnessLayer.Commands
             };
         }
 
-        private string FormIgnoreListMessage(HashSet<string> ignoreIds)
-        {
-            return string.Join(Environment.NewLine, ignoreIds);
-        }
+        private string FormIgnoreListMessage(HashSet<string> ignoreIds) => 
+            string.Join(Environment.NewLine, ignoreIds);
     }
 }

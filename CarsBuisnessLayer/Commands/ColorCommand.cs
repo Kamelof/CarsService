@@ -16,8 +16,8 @@ namespace CarsBuisnessLayer.Commands
             IList<ChatUserSettings> userSettings)
         {
             CommandOutput result = null;
-            var colorString = _args[0];
-            if (Enum.TryParse(typeof(ConsoleColor), colorString, out var color))
+            string colorString = _args[0];
+            if (Enum.TryParse(typeof(ConsoleColor), char.ToUpper(colorString[0]) + colorString[1..], out var color))
             {
                 var newColor = (ConsoleColor)color;
                 userSettings.GetSettingsByClientId(callerId).UserConsoleColor = newColor;

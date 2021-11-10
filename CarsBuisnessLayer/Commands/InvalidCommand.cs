@@ -1,4 +1,5 @@
-﻿using CarsCore.Models.ChatModels;
+﻿using CarsCore;
+using CarsCore.Models.ChatModels;
 using System.Collections.Generic;
 
 namespace CarsBuisnessLayer.Commands
@@ -15,7 +16,7 @@ namespace CarsBuisnessLayer.Commands
         {
             return new CommandOutput
             {
-                Message = CreateSystemMessage("Invalid command!")
+                Message = CreateSystemMessage(Constants.InvalidCommandMessage)
             };
         }
     }

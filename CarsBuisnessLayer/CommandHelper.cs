@@ -22,6 +22,7 @@ namespace CarsBuisnessLayer
                     Constants.Commands.Mute => new MuteCommand(args),
                     Constants.Commands.Unmute => new UnmuteCommand(args),
                     Constants.Commands.MuteList => new MuteListCommand(args),
+                    Constants.Commands.Nickname => new NicknameCommand(args),
                     _ => new InvalidCommand(args),
                 };
             }
