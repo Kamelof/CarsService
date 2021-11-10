@@ -34,7 +34,7 @@ namespace CarsBuisnessLayer.Services
                 ? await SaveUserEmailAsync(accountInfoDTO, confirmationString)
                 : null;
 
-            var result = await SaveUserInfoAsync(accountInfoDTO, emailId);
+            Guid result = await SaveUserInfoAsync(accountInfoDTO, emailId);
 
             if(emailId.HasValue)
             {
@@ -58,10 +58,10 @@ namespace CarsBuisnessLayer.Services
         }
         private async Task<Guid> SaveUserInfoAsync(AccountInfoDTO accountInfoDTO, int? emailId)
         {
-            var accountInfo = _mapper.Map<AccountInfo>(accountInfoDTO);
+            AccountInfo accountInfo = _mapper.Map<AccountInfo>(accountInfoDTO);
             accountInfo.EmailId = emailId.Value;
 
-            var result = await _userRepository.AddUserAsync(accountInfo);
+            Guid result = await _userRepository.AddUserAsync(accountInfo);
             return result;
         }
 

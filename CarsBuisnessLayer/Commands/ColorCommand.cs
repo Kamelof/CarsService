@@ -19,7 +19,7 @@ namespace CarsBuisnessLayer.Commands
             string colorString = _args[0];
             if (Enum.TryParse(typeof(ConsoleColor), char.ToUpper(colorString[0]) + colorString[1..], out var color))
             {
-                var newColor = (ConsoleColor)color;
+                ConsoleColor newColor = (ConsoleColor)color;
                 userSettings.GetSettingsByClientId(callerId).UserConsoleColor = newColor;
 
                 result = new CommandOutput

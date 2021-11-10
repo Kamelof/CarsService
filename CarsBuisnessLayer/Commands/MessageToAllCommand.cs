@@ -20,7 +20,7 @@ namespace CarsBuisnessLayer.Commands
             string callerId,
             IList<ChatUserSettings> userSettings)
         {
-            var igonoreList = userSettings
+            List<string> igonoreList = userSettings
                   .Where(x => x.MuteList
                       .Contains(callerId))
                   .Select(x => x.ClientId).ToList();

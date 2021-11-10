@@ -24,16 +24,16 @@ namespace CarsBuisnessLayer.Commands
             IList<ChatUserSettings> userSettings)
         {
             CommandOutput result = null;
-            var receiver = userSettings.GetClientIdByReceiverArg(_args[0]);
+            string receiver = userSettings.GetClientIdByReceiverArg(_args[0]);
             if (userSettings.GetSettingsByClientId(receiver) != null)
             {
-                var igonoreList = userSettings
+                List<string> igonoreList = userSettings
                   .Where(x => x.MuteList
                       .Contains(callerId))
                   .Select(x => x.ClientId).ToList();
                 igonoreList.Add(callerId);
 
-                var personalMessage = string.Join(
+                string personalMessage = string.Join(
                     Constants.CommandElementSeparator,
                     _args[1..]);
 
