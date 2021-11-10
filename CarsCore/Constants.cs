@@ -17,6 +17,7 @@ namespace CarsCore
             public const string MuteList = "mutelist";
             public const string Unmute = "unmute";
             public const string Nickname = "nickname";
+            public const string OnlineUsers = "onlineusers";
         }
         public static class ClientMethods
         {
@@ -32,7 +33,7 @@ namespace CarsCore
                 + Environment.NewLine +
                 "/mute <CallerId>||<CallerNickName> => muted message from client"
                 + Environment.NewLine +
-                "/mutelist => show your list whith muted clients"
+                "/muteList => show your list whith muted clients"
                 + Environment.NewLine +
                 "/unmute <CallerId>||<CallerNickName> => remove client from mutelist"
                 + Environment.NewLine +
@@ -40,9 +41,14 @@ namespace CarsCore
                 + Environment.NewLine +
                 "/nickname <newNickName> => change your nickname"
                 + Environment.NewLine +
+                "/onlineUsers => show your list whith online clients without muted"
+                + Environment.NewLine +
                 "Text of your message => send message to all in chat";
+
             public static string NicknameChanged(string nickname) => $"Nickname changed to {nickname}";
+
             public static string NicknameAlreadyUse(string nickname) => $"Sorry, but nickname {nickname} is already use";
+
             public static string UserMuted(string user)
                 => string.Format("{0} muted!", user);
 
