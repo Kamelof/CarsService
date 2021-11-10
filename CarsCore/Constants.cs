@@ -26,25 +26,28 @@ namespace CarsCore
         public static class ServerMessages
         {
             public static string Help = 
-                "/msg <CallerId> Your message text => send private message to client"
+                "/msg <CallerId>||<CallerNickName> Your message text => send private message to client"
                 + Environment.NewLine +
                 "/help => call this help"
                 + Environment.NewLine +
-                "/mute <CallerId> => muted message from client"
+                "/mute <CallerId>||<CallerNickName> => muted message from client"
                 + Environment.NewLine +
                 "/mutelist => show your list whith muted clients"
                 + Environment.NewLine +
-                "/unmute <CallerId> => remove client from mutelist"
+                "/unmute <CallerId>||<CallerNickName> => remove client from mutelist"
                 + Environment.NewLine +
                 "/color <colorName> => change your messages color"
                 + Environment.NewLine +
+                "/nickname <newNickName> => change your nickname"
+                + Environment.NewLine +
                 "Text of your message => send message to all in chat";
             public static string NicknameChanged(string nickname) => $"Nickname changed to {nickname}";
-            public static string UserMuted(string userId)
-                => string.Format("{0} muted!", userId);
+            public static string NicknameAlreadyUse(string nickname) => $"Sorry, but nickname {nickname} is already use";
+            public static string UserMuted(string user)
+                => string.Format("{0} muted!", user);
 
-            public static string UserUnmuted(string userId)
-                => string.Format("{0} unmuted!", userId);
+            public static string UserUnmuted(string user)
+                => string.Format("{0} unmuted!", user);
         }
     }
 }

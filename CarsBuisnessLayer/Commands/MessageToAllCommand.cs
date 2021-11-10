@@ -26,22 +26,11 @@ namespace CarsBuisnessLayer.Commands
                   .Select(x => x.ClientId).ToList();
             igonoreList.Add(callerId);
 
-            string sender = null;
-            string senderNickname = userSettings.GetSettingsByClientId(callerId).Nickname;
-            if (senderNickname != null)
-            {
-                sender = senderNickname;
-            } 
-            else
-            {
-                sender = callerId;
-            }
-
             return new CommandOutput
             {
                 Message = new ChatMessage
                 {
-                    Sender = sender,
+                    Sender = userSettings.GetSettingsByClientId(callerId).NicknameExist(callerId),
                     MessageColor = userSettings.GetSettingsByClientId(callerId).UserConsoleColor,
                     Text = string.Join(Constants.CommandElementSeparator, _args)
                 },

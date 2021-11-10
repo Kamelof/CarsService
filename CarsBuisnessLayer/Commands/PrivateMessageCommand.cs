@@ -24,8 +24,8 @@ namespace CarsBuisnessLayer.Commands
             IList<ChatUserSettings> userSettings)
         {
             CommandOutput result = null;
-            var id = _args[0];
-            if (userSettings.GetSettingsByClientId(id) != null)
+            var receiver = userSettings.GetClientIdByReceiverArg(_args[0]);
+            if (userSettings.GetSettingsByClientId(receiver) != null)
             {
                 var igonoreList = userSettings
                   .Where(x => x.MuteList
@@ -41,13 +41,13 @@ namespace CarsBuisnessLayer.Commands
                 {
                     Message = new ChatMessage
                     {
-                        Sender = callerId,
+                        Sender = userSettings.GetSettingsByClientId(callerId).NicknameExist(callerId),
                         MessageColor = userSettings.GetSettingsByClientId(callerId)
                             .UserConsoleColor,
                         Text = personalMessage,
                     },
                     IgnoreList = igonoreList,
-                    TargetId = id
+                    TargetId = receiver
                 };
             }
             else

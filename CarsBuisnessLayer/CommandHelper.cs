@@ -14,7 +14,7 @@ namespace CarsBuisnessLayer
                 message = message[1..];
                 string[] splitted = message.Split(Constants.CommandElementSeparator, StringSplitOptions.RemoveEmptyEntries);
                 string[] args = splitted[1..];
-                result = splitted[0] switch
+                result = splitted[0].ToLower() switch
                 {
                     Constants.Commands.PrivateMessage => new PrivateMessageCommand(args),
                     Constants.Commands.Help => new HelpCommand(args),

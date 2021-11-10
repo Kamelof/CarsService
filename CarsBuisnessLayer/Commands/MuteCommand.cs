@@ -16,19 +16,19 @@ namespace CarsBuisnessLayer.Commands
             IList<ChatUserSettings> userSettings)
         {
             CommandOutput result = null;
-            var id = _args[0];
-            var userWithId = userSettings.GetSettingsByClientId(id);
-            var currentUserSettings = userSettings.GetSettingsByClientId(callerId);
+            string mutedUser = _args[0];
+            string mutedId = userSettings.GetClientIdByReceiverArg(mutedUser);
+            ChatUserSettings currentUserSettings = userSettings.GetSettingsByClientId(callerId);
 
-            if (userWithId != null &&
-                !currentUserSettings.MuteList.Contains(id))
+            if (userSettings.GetSettingsByClientId(mutedId) != null
+                && !currentUserSettings.MuteList.Contains(mutedId))
             {
-                currentUserSettings.MuteList.Add(id);
+                currentUserSettings.MuteList.Add(mutedId);
 
                 result = new CommandOutput
                 {
                     ClientMethod = Constants.ClientMethods.ReceiveMessage,
-                    Message = CreateSystemMessage(Constants.ServerMessages.UserMuted(id))
+                    Message = CreateSystemMessage(Constants.ServerMessages.UserMuted(mutedUser))
                 };
             }
 
