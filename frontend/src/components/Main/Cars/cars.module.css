@@ -1,0 +1,16 @@
+.allBorder{
+    border: 1px solid red;
+}
+.carsBlock{
+
+}
+.cars{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.car{
+    text-align: center;
+    flex: 0 0 32%;
+    border: 1px solid black;
+}

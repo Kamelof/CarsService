@@ -1,0 +1,29 @@
+.allBorder{
+    border: 1px solid red;
+}
+.header {
+    display: flex;
+}
+.logo{
+
+}
+.menuBlock{
+    width: 100%;
+}
+.buttonBlock {
+    display: flex;
+    align-self: flex-end;
+    padding: 0px 10px;
+}
+.signInBlock {
+    padding: 0px 10px;
+}
+.signIn{
+
+}
+.signUpBlock{
+
+}
+.signUp{
+
+}
