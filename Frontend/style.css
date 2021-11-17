@@ -1,0 +1,17 @@
+.header{
+    display: flex;
+}
+.buttonBlock{
+    display: flex;
+    padding: 0px 10px;
+}
+.allBorder{
+    border: 1px solid red;
+}
+.menu{
+    width: 100%;
+    text-align: end;
+}
+.signInBlock{
+    padding: 0px 10px 0px 0px;
+}
