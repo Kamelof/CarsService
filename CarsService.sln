@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsCore", "CarsCore\CarsCo
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CarsMsSql", "CarsMsSql\CarsMsSql.sqlproj", "{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsBuisnessLayerTest", "CarsBuisnessLayerTest\CarsBuisnessLayerTest.csproj", "{0ABD2F54-7A49-4D3C-ABBA-8E0FD4400640}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87B1EA1E-C033-4D3A-B3A7-6CBF3889A184}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0ABD2F54-7A49-4D3C-ABBA-8E0FD4400640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ABD2F54-7A49-4D3C-ABBA-8E0FD4400640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ABD2F54-7A49-4D3C-ABBA-8E0FD4400640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ABD2F54-7A49-4D3C-ABBA-8E0FD4400640}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
